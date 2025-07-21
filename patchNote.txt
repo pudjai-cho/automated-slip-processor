@@ -1,0 +1,46 @@
+---This will only work for bank app slip (Not sure about bank receipt with transaction id, have to wait for the SCB to approve the API key for me to test)---
+
+**To Do:**
+
+
+*   [IN-PROGRESS] Check if the CSV row has already been processed to prevent duplication.
+
+*   Scan the QR code and verify it with the bank.
+
+*   Use Bank QR to:
+    *   Verify the data against the data received from the bank: (Date, Transaction ID, Name, Bank Account).
+    *   Verify the data if the transaction is transferred to the owner's or an allowed bank account.
+    *   Check if the current rent slip is a duplicate of the previous month's rent slip.
+    *   Verify that the transfer date is newer than the date on the previous month's slip to prevent the use of old slips. For example, if last month's transfer date is 15 Feb 2025, then this month must be newer. This way, the system doesn't have to compare with every single slip for this room in the database.
+
+*   Handle payments that cover more than one month. Consider changing to an amount-based system. For example, if the rent is 20,000, then when it's the due date, the room balance will be -20,000. When a tenant transfers 20,000, the balance will change to 0. If they paid 15,000, the balance will be -5,000. This way, if the tenant pays 60,000, the balance becomes 40,000. Subsequent monthly deductions of 20,000 will reduce the balance: 40,000 -> 20,000 -> 0 -> -20,000, which will trigger the notification system again.
+
+*   To handle multiple slips in one image (in case the client has already combined the slips for us)
+
+
+
+***System Improvement***
+
+
+*   Combining Images will be done via tracked files, not the whole folder.
+
+
+*   [DatabaseService] filterOutRowsAlreadyInDatabase
+Performance for Large Input Arrays: 
+
+     While creating the index helps, the loop still performs one database query (await this.recordExists(...)) for each object in arrayOfObjects. If arrayOfObjects contains thousands or tens of thousands of records, this will result in thousands of separate database calls. This is often a major performance bottleneck known as the "N+1 query problem".
+     Suggestion for Improvement: A significantly more performant approach for large arrays would be:
+    a.  Extract all data values (the fileLink values in your primary use case) from arrayOfObjects into a JavaScript Set.
+    b.  Construct a single database query that checks for the existence of any of these values. For example, a SELECT columnName FROM tableName WHERE columnName IN (...) query, where the ... are replaced by parameterized placeholders for the values from your set.
+    c.  Execute this single query and fetch all the fileLink values that are already in the database. Put these results into a second JavaScript Set.
+    d.  Iterate through the original arrayOfObjects again. For each row, check if its data value (row[columnName]) exists in the second set (the set of values already in the database).
+    e.  If the value is not in the database set, add the row to your notInTableResult array.
+     This reduces the number of database round trips from N (number of input rows) to typically 1 or 2, dramatically improving performance for large inputs. This refactoring would make the filterOutRowsAlreadyInDatabase function much more scalable.
+     
+
+
+
+
+**0.1:**
+
+*   Launch Alpha Version, workable but no OCR, QR scanner, or SQL database.

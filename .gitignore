@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+/package-lock.json
+
+# Build artifacts
+dist/*
+!dist/.gitkeep
+
+# Credentials & Environment
+.env
+.env.*
+credentials.json
+service-account.json
+
+# Local Data & Databases
+/data/*.csv
+/PaymentSlips.csv
+/sql/database_core.db
+/sql/*.db-journal
+
+# Temporary Files
+temp_downloads/**
+!temp_downloads/**/.gitkeep
+
+# Editor Configuration
+.vscode/
