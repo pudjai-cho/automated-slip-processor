@@ -1,4 +1,4 @@
-# 📜Wix Form Submission Archiving Bot
+# 📜Tenant Payment Record Processor
 
 This is a Node.js/TypeScript application designed to automate the archiving of file submissions from a Wix Form. It reads form submission data from a source CSV file, downloads the corresponding file uploads (which can be single/multiple images or single/multi-page PDFs), standardizes them into a single image file per submission, and archives them in a designated Google Drive folder.
 
