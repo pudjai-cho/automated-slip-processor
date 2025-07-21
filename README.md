@@ -1,8 +1,8 @@
-# Wix Form Submission Archiving Bot
+# 📜Wix Form Submission Archiving Bot
 
 This is a Node.js/TypeScript application designed to automate the archiving of file submissions from a Wix Form. It reads form submission data from a source CSV file, downloads the corresponding file uploads (which can be single/multiple images or single/multi-page PDFs), standardizes them into a single image file per submission, and archives them in a designated Google Drive folder.
 
-## Features
+## ✨Features
 
 -   **CSV-Driven**: Initiates its workflow based on records from a Wix Form CSV export.
 
@@ -23,7 +23,7 @@ This is a Node.js/TypeScript application designed to automate the archiving of f
 
 -   **Environment-Aware Configuration**: Supports different `.env` files for `development` and `production` environments.
 
-## Workflow
+## ⚙️Workflow
 
 The script follows a clear, automated workflow:
 
@@ -52,7 +52,7 @@ The script follows a clear, automated workflow:
     -   It uploads all the newly created consolidated JPG files from the `to_be_uploaded` directory to the specified Google Drive folder.
     -   Processed files are moved to an `already_uploaded` sub-directory to prevent re-uploading.
 
-## Source CSV Format
+## 📋Source CSV Format
 The bot is tailored to process CSV files exported from Wix Forms with the following structure. Note that the `File upload` column can contain one or more URLs separated by a semicolon.
 
 ```csv
@@ -67,7 +67,7 @@ The bot is tailored to process CSV files exported from Wix Forms with the follow
 
 ```
 
-## Setup and Installation
+## 🚀Setup and Installation
 
 1.  Clone the repository:
 
@@ -107,7 +107,7 @@ The bot is tailored to process CSV files exported from Wix Forms with the follow
 
     ```
 
-## Usage
+## ▶️Usage
 
 To run the application, use the following commands:
 
@@ -141,7 +141,7 @@ node dist/index.js
 
 ```
 
-## Project Structure
+## 🏗️Project Structure
 
 ```sh
 .
